@@ -1,94 +1,103 @@
+# 🔬 Deep Neural Network from Scratch with PyTorch – Breast Cancer Classification
+
+This project implements a **deep feedforward neural network from scratch using PyTorch**, without using high-level modules like `torch.nn.Module` or `torch.optim`. The model classifies breast cancer cases (malignant vs. benign) using the **Breast Cancer Wisconsin Diagnostic Dataset** from [Kaggle](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data).
 
 ---
 
-# DeepCNN_Pytorch
+## 📌 Project Highlights
 
-This repository demonstrates building deep convolutional neural network (DeepCNN) layers completely from scratch in PyTorch—without leveraging the built-in nn.Module or high-level abstractions. All components, including layers and forward/backward passes, are implemented manually for educational purposes.
+- ✅ Pure PyTorch (no `nn.Module`, no `optim`)
+- ✅ Manual forward pass, backward pass, and parameter updates
+- ✅ Supports any architecture (you define layer sizes)
+- ✅ Trained on real-world breast cancer dataset
+- ✅ Visualized loss & accuracy over epochs
 
-## Project Overview
+---
 
-- **Goal:** Implement and train a deep neural network from scratch using only PyTorch tensors and operations, without using `nn.Module` or any high-level neural network utilities.
-- **Dataset:** Breast cancer dataset with shape (144, 30) — 144 samples, each with 30 features.
-- **Architecture Used:**
-  - **Input:** 30 features
-  - **Hidden Layer 1:** 4 neurons
-  - **Hidden Layer 2:** 3 neurons
-  - **Hidden Layer 3:** 2 neurons
-  - **Output Layer:** 1 neuron, sigmoid activation
+## 🧠 Model Architecture
 
-**X:    [N, 30]**
-**↓**
-**z1:   [N, 4]    ← W1: [30, 4]**
-**a1:   [N, 4]**
-**↓**
-**z2:   [N, 3]    ← W2: [4, 3]**
-**a2:   [N, 3]**
-**↓**
-**z3:   [N, 2]    ← W3: [3, 2]**
-**a3:   [N, 2]**
-**↓**
-**z4:   [N, 1]    ← W4: [2, 1]**
-**y_pred: [N, 1] → sigmoid(z4)**
+The neural network used in this project is **fully connected**, with the following architecture:
 
-   **    Input Layer (30 units)
-  **       |
-         V
- **W1: (30 x 4)  --> Hidden Layer 1 (4 neurons)**
-         |
-         V
-  **W2: (4 x 3)   --> Hidden Layer 2 (3 neurons)**
-         |
-         V
-  **W3: (3 x 2)   --> Hidden Layer 3 (2 neurons)**
-         |
-         V
-   **W4: (2 x 1)   --> Output Layer (1 neuron, sigmoid)**
+Input Layer : 30 features (after preprocessing)
+Hidden Layer 1 : 4 neurons + ReLU
+Hidden Layer 2 : 3 neurons + ReLU
+Hidden Layer 3 : 2 neurons + ReLU
+Output Layer : 1 neuron + Sigmoid
 
+yaml
+Copy
+Edit
 
+> Loss function: Binary Cross-Entropy (BCE)  
+> Activation: ReLU (hidden), Sigmoid (output)  
+> Optimizer: Manual gradient descent using `loss.backward()` and weight updates
 
+---
 
+## 📊 Dataset Overview
 
+- **Source**: Kaggle – Breast Cancer Wisconsin (Diagnostic) Data Set  
+- **Link**: [https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 
-## Key Highlights
+### Preprocessing:
 
-- **No Use of `nn.Module`**: All neural network components are hard-coded, providing hands-on understanding of the underlying mechanics.
-- **Manual Forward and Backward Passes:** From weight initialization to backpropagation, every aspect is implemented from scratch.
-- **Educational Focus:** Ideal for those wanting to learn how neural networks work under the hood, beyond auto-differentiation and high-level APIs.
+- ✅ Dropped non-informative columns (`id`)
+- ✅ Encoded target: `M` → 1, `B` → 0
+- ✅ Scaled features using **StandardScaler** (mean=0, std=1)
+- ✅ Converted data to PyTorch tensors (`dtype=torch.float64`)
 
-## Results
+---
 
-- **Accuracy Achieved:** 62% (without any hyperparameter tuning, using raw learning).
+## 📈 Training Results
 
-## Getting Started
+- Final Accuracy: ~61%  
+- Final Loss: ~0.72  
+- Plotted **loss vs epochs** and **accuracy vs epochs**  
+- Trained for 100 epochs with learning rate 0.01
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/malakazlan/DeepCNN_Pytorch.git
-   cd DeepCNN_Pytorch
-   ```
+> Note: Since this is a pure-from-scratch implementation, there’s room for optimization by tuning learning rate, epochs, adding regularization, or using better architectures.
 
-2. Open and run the Jupyter Notebook to see code, explanations, and results.
+---
 
-## Requirements
+## 📦 File Structure
 
-- Python 3.x
-- PyTorch
-- Jupyter Notebook
-- Numpy
+├── deep_nn_from_scratch.py # All model, training, and evaluation logic
+├── breast_cancer.csv # Dataset (from Kaggle)
+├── README.md # This file
+├── requirements.txt # Minimal dependencies
 
-Install dependencies using:
+yaml
+Copy
+Edit
+
+---
+
+## 📌 Key PyTorch Concepts Practiced
+
+- `requires_grad=True`
+- `.backward()` for autograd
+- Manual parameter updates with `torch.no_grad()`
+- Broadcasting and shape alignment
+- ReLU and Sigmoid activation functions
+- Manual loss function implementation (Binary Cross-Entropy)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install dependencies
 ```bash
-pip install torch numpy notebook
-```
-
-## File Structure
-
-- `DeepCNN_from_scratch.ipynb` — Main notebook containing all code and explanations.
-- `README.md` — This file.
-
-## Acknowledgements
-
-- Breast cancer dataset used for demonstration and testing.
-
-
-Feel free to edit or add more details as needed! If you want this as a markdown file or want it updated with additional info, let me know.
+pip install torch matplotlib pandas scikit-learn
+2. Run the training script
+bash
+Copy
+Edit
+python deep_nn_from_scratch.py
+📊 Sample Output
+yaml
+Copy
+Edit
+Epoch 0 | Loss: 0.6932 | Accuracy: 0.56
+Epoch 10 | Loss: 0.6821 | Accuracy: 0.61
+...
+Epoch 99 | Loss: 0.7234 | Accuracy: 0.61
