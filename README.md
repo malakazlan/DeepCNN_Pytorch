@@ -1,4 +1,3 @@
-Here’s a professional README.md draft for your repo, based on your description:
 
 ---
 
