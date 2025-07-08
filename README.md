@@ -57,10 +57,5 @@ pip install torch numpy notebook
 
 - Breast cancer dataset used for demonstration and testing.
 
-## License
-
-This project is for educational purposes.
-
----
 
 Feel free to edit or add more details as needed! If you want this as a markdown file or want it updated with additional info, let me know.
